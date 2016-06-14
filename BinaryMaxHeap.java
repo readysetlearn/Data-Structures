@@ -17,8 +17,7 @@ public class BinaryMaxHeap {
         }
         
         heap[++end] = key;
-        //TODO: this sholdn't even need an argument passed
-        heapifyUp(end); 
+        heapifyUp(); 
         
 
     }
@@ -31,7 +30,8 @@ public class BinaryMaxHeap {
     /*consider maknig this a public method,
     so that the user can insert a bunch of keys
     and only have to heapify once*/
-    private void heapifyUp(int childIndx) {//this function could be written in a recursive way
+    private void heapifyUp() {//this function could be written in a recursive way
+        int childIndx = end;//start heapify process at last inserted node
         int newKey = heap[childIndx];//this is value that was just added
         
         while(childIndx > FRONT && newKey > heap[getParentIndx(childIndx)]) {//not sure if the logic is correct in this line, I think depending on > or < it changes whether it's a max, min or some other type of heap
@@ -77,8 +77,8 @@ public class BinaryMaxHeap {
     
     
     
-    private final int[] heap;
-    private int end;//current size
+    private final int[] heap;//array where keys(values) are stored
+    private int end;//pointer to last used element
     private final int MAX_SIZE;//space allocated for heap
     private final int FRONT = 1;//first key is inserted at index 1, not 0
 }
