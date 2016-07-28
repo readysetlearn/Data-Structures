@@ -17,7 +17,7 @@ public class BinaryMaxHeap {
         }
         
         heap[++end] = key;
-        heapifyUp(); 
+        heapifyUp(end); 
         
 
     }
@@ -30,11 +30,11 @@ public class BinaryMaxHeap {
     /*consider maknig this a public method,
     so that the user can insert a bunch of keys
     and only have to heapify once*/
-    private void heapifyUp() {//this function could be written in a recursive way
-        int childIndx = end;//start heapify process at last inserted node
-        int newKey = heap[childIndx];//this is value that was just added
+    private void heapifyUp(int position) {//this function could be written in a recursive way
+        int childIndx = position;
+        int newKey = heap[childIndx];
         
-        while(childIndx > FRONT && newKey > heap[getParentIndx(childIndx)]) {//not sure if the logic is correct in this line, I think depending on > or < it changes whether it's a max, min or some other type of heap
+        while(childIndx > FRONT && newKey > heap[getParentIndx(childIndx)]) {
             heap[childIndx] = heap[getParentIndx(childIndx)];
             childIndx = getParentIndx(childIndx);
         }
@@ -60,21 +60,36 @@ public class BinaryMaxHeap {
         assert isHeap() : "not a heap";
     }
     
+    /*returns number of nodes*/
+    public int getSize() {
+        return end;
+    }
+    
     /*returns true iff array has heap property*/
     /*consider making this a static method so any array can be tested*/
-    private boolean isHeap() {
-        for(int i = FRONT; i <= Math.ceil(end / 2); i++) {
-            if(2*i+1 <= end && heap[i] < heap[2*i+1])
-                    return false;
-            else if(2*i <= end && heap[i] < heap[2*i])
-                    return false;
+    public boolean isHeap() {
+        for(int i = FRONT; i <= end / 2; i++) {            
+            if (2 * i + 1 <= end && heap[i] < heap[2 * i + 1] || heap[i] < heap[2 * i]) {
+                return false;
+            }
         }
         
         return true;
 			
     }
 
+    /*remove and return the max value (the root)*/
+    public int removeMax() {
+        final int MAX = heap[FRONT];
+        heap[FRONT] = heap[end--];//put right most leaf at root
+        heapifyUp(FRONT);
+        return MAX;
+    }
     
+    /*return the heap as array*/
+    public int[] getHeapArray() {
+        return heap;
+    }
     
     
     private final int[] heap;//array where keys(values) are stored

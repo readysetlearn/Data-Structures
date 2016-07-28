@@ -1,7 +1,7 @@
 package data.structures;
 
 
-public class TestHeap {
+public class ExampleHeap {
 
 
     public static void main(String[] args) {
