@@ -23,8 +23,27 @@ public class BinaryMaxHeap {
     }
     
     /*INPUT i: index of child*/
-    private int getParentIndx(final int i) {
-        return ((int)Math.floor((i / 2)));//result is automatically truncated to int
+    public int getParentIndx(final int i) {
+        return (i / 2);
+    }
+    
+    /*INPUT i: index of parent*/
+    public int getLeftChildIndex(final int i) {
+        return (i * 2);
+    }
+    
+    /*INPUT i: index of parent*/
+    public int getRightChildIndex(final int i) {
+        return (i * 2 + 1);
+    }
+    
+    /*return true if node at position is leaf*/
+    private boolean isLeaf(int position) {
+        if(position <= end && position >= end / 2) {//first check isn't always nescecary
+            return true;
+        } else {
+            return false;
+        }
     }
     
     /*consider maknig this a public method,
@@ -82,8 +101,41 @@ public class BinaryMaxHeap {
     public int removeMax() {
         final int MAX = heap[FRONT];
         heap[FRONT] = heap[end--];//put right most leaf at root
-        heapifyUp(FRONT);
+        heapifyDown(FRONT);
         return MAX;
+    }
+    
+    /*compares node at position with its children and
+    swaps it with the largest child if its larger than it*/
+    private void heapifyDown(int position) {
+        /*pesudeocode:
+            while(position has leaf) {
+                choose largest leaf
+                if bigger than swap
+                else break
+            }
+        */
+        
+        while(!isLeaf(position)) {
+            //get largest of children
+            int largestChildIndex;
+            if(heap[getLeftChildIndex(position)] > heap[getRightChildIndex(position)]) {
+                largestChildIndex = getLeftChildIndex(position);
+            } else {
+                largestChildIndex = getRightChildIndex(position);
+            }
+            //check if child is larger than parent
+            if(heap[position] < heap[largestChildIndex]) {
+                //if it is, then swap
+                int temp = heap[position];
+                heap[position] = heap[largestChildIndex];
+                heap[largestChildIndex] = temp;
+                position = largestChildIndex;
+            } else {
+                //if it's not, heap property is satisfied
+                break;
+            }
+        }
     }
     
     /*return the heap as array*/
