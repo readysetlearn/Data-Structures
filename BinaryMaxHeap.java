@@ -39,11 +39,7 @@ public class BinaryMaxHeap {
     
     /*return true if node at position is leaf*/
     private boolean isLeaf(int position) {
-        if(position <= end && position >= end / 2) {//first check isn't always nescecary
-            return true;
-        } else {
-            return false;
-        }
+        return ((2 * position) >= end);
     }
     
     /*consider maknig this a public method,
@@ -71,9 +67,9 @@ public class BinaryMaxHeap {
     public void pprint() {
         for (int i = FRONT; i <= (int)Math.floor(end / 2); i++) {
             System.out.print("Parent: " + heap[i] + " Left child: " + heap[2 * i]);
-            if(2 * i + 1 <= end)//must check as parent may have no right child
+            if(2 * i + 1 <= end) {//must check as parent may have no right child
                     System.out.print(" Right child: " + heap[2 * i  + 1]);
-            
+            }
             System.out.println();
         }
         assert isHeap() : "not a heap";
@@ -100,10 +96,12 @@ public class BinaryMaxHeap {
     /*remove and return the max value (the root)*/
     public int removeMax() {
         final int MAX = heap[FRONT];
-        heap[FRONT] = heap[end--];//put right most leaf at root
+        heap[FRONT] = heap[end--];
         heapifyDown(FRONT);
+
         return MAX;
     }
+    
     
     /*compares node at position with its children and
     swaps it with the largest child if its larger than it*/
