@@ -39,7 +39,7 @@ public class BinaryMaxHeap {
     
     /*return true if node at position is leaf*/
     private boolean isLeaf(int position) {
-        return ((2 * position) >= end);
+        return ((2 * position) > end);
     }
     
     /*consider maknig this a public method,
