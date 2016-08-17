@@ -23,23 +23,30 @@ public class BinaryMaxHeap {
     }
     
     /*INPUT i: index of child*/
-    public int getParentIndx(final int i) {
+    private int getParentIndx(final int i) {
         return (i / 2);
     }
     
     /*INPUT i: index of parent*/
-    public int getLeftChildIndex(final int i) {
+    private int getLeftChildIndex(final int i) {
         return (i * 2);
     }
     
     /*INPUT i: index of parent*/
-    public int getRightChildIndex(final int i) {
+    private int getRightChildIndex(final int i) {
         return (i * 2 + 1);
     }
     
     /*return true if node at position is leaf*/
     private boolean isLeaf(int position) {
         return ((2 * position) > end);
+    }
+    
+    /*swap two elements in heap*/
+    private void swap(int i, int j) {
+        int temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
     }
     
     /*consider maknig this a public method,
@@ -125,9 +132,7 @@ public class BinaryMaxHeap {
             //check if child is larger than parent
             if(heap[position] < heap[largestChildIndex]) {
                 //if it is, then swap
-                int temp = heap[position];
-                heap[position] = heap[largestChildIndex];
-                heap[largestChildIndex] = temp;
+                swap(position, largestChildIndex);
                 position = largestChildIndex;
             } else {
                 //if it's not, heap property is satisfied
