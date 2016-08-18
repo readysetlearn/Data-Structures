@@ -102,6 +102,9 @@ public class BinaryMaxHeap {
 
     /*remove and return the max value (the root)*/
     public int removeMax() {
+        if(end < FRONT) {//already removed last node
+            //throw new NoSuchElementException("Heap is empty");
+        }
         final int MAX = heap[FRONT];
         heap[FRONT] = heap[end--];
         heapifyDown(FRONT);
