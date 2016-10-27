@@ -114,7 +114,8 @@ public class BinaryMaxHeap {
     
     
     /*compares node at position with its children and
-    swaps it with the largest child if its larger than it*/
+    swaps it with the largest child if its larger than it
+    aka siftDown, bubbleDown*/
     private void heapifyDown(int position) {
         /*pesudeocode:
             while(position has leaf) {
@@ -151,7 +152,7 @@ public class BinaryMaxHeap {
     
     
     private final int[] heap;//array where keys(values) are stored
-    private int end;//pointer to last used element
+    private int end;//index of last used element
     private final int MAX_SIZE;//space allocated for heap
     private final int FRONT = 1;//first key is inserted at index 1, not 0
 }
